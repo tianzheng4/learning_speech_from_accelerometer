@@ -1,1 +1,3 @@
 Recognition code
+
+feeder.py: provide three feeders. One is for a single dataset; One is for multiple datasets; And the last one is to input a single image (spectrogram)
