@@ -17,4 +17,4 @@ The GL code is in "GL" directory
 
 We are still working on polishing some code, pls stay tuned.
 
-If there is any problem, pls contact tzheng4@buffalo.edu
+If there is any question/problem, pls contact tzheng4@buffalo.edu
