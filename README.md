@@ -1,4 +1,4 @@
-# Deep-Learning-on-Accelerometer-Measurements
+# Learning-Speech-from-Accelerometer-Measurements
 
 We recognize and reconstruct speech information/signal from accelerometer in this project. 
 The accelerometer measurements are preprocessed by Matlab code into acceleration spectrograms, and then, the accerelation spectrograms are input into DenseNet/StyleTransfer for recognization and reconstruction.
