@@ -8,8 +8,11 @@ The reconstructed speech spectrograms will be processed by GL algorithm to recon
 -----------------------------------------------------------------------------------------------------------------
 
 The preprocessing code is in "preprocess" directory
+
 The recognization code is in "recognization" directory
+
 The reconstruction code is in "reconstruction" directory
+
 The GL code is in "GL" directory
 
 We are still working on polishing some code, pls stay tuned.
