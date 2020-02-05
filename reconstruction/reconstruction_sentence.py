@@ -25,13 +25,13 @@ def parse_args():
     parser.add_argument('--mode', type=str, default='train', help='train or test')
     parser.add_argument('--lr', type=float, default=1e-3, help='learning rate')
 
-    parser.add_argument('--train_audio_path', type=str, default='/data/zth/accelerate-audio/SpeechReconstruction/TrainAudioSpec/')
-    parser.add_argument('--train_acc_path', type=str, default='/data/zth/accelerate-audio/SpeechReconstruction/TrainAccSpec/')
+    parser.add_argument('--train_audio_path', type=str, default='')
+    parser.add_argument('--train_acc_path', type=str, default='')
 
-    parser.add_argument('--test_audio_path', type=str, default='/data/zth/accelerate-audio/SpeechReconstruction/TestAudioSpec/')
-    parser.add_argument('--test_acc_path', type=str, default='/data/zth/accelerate-audio/SpeechReconstruction/TestAccSpec/')
+    parser.add_argument('--test_audio_path', type=str, default='')
+    parser.add_argument('--test_acc_path', type=str, default='')
 
-    parser.add_argument('--reconstruct_path', type=str, default='/data/zth/accelerate-audio/SpeechReconstruction/reconstruction/')
+    parser.add_argument('--reconstruct_path', type=str, default='')
 
     parser.add_argument('--num_epochs', type=int, default=100)
     parser.add_argument('--cuda', type=bool, default=True)
@@ -43,8 +43,8 @@ def parse_args():
 
     parser.add_argument('--outfile', type=str, default='log.txt')
 
-    parser.add_argument('--load_dir', type=str, default='models/reconstruction/sentence')
-    parser.add_argument('--save_dir', type=str, default='models/reconstruction/sentence')
+    parser.add_argument('--load_dir', type=str, default='')
+    parser.add_argument('--save_dir', type=str, default='')
 
 
     return parser.parse_args()
@@ -73,11 +73,6 @@ def train(model, optimizer, train_dl, args):
             optimizer.zero_grad()
             loss.backward()
             optimizer.step()
-
-            # y_numpy = y.cpu().detach().numpy()
-            # dim = np.prod(np.shape(y_numpy)[1:])
-            # dataB_numpy = dataB.cpu().detach().numpy()
-            # print(loss, np.mean(np.sum(np.abs(y_numpy.reshape(-1, dim)), axis=1)), np.mean(np.sum(np.abs(dataB_numpy.reshape(-1, dim)), axis=1)))
 
             qbar.update()
 
@@ -141,8 +136,6 @@ def reconstruct(model, args):
         img = np.rint(np.clip((img*255.0), 0, 255)).astype(np.uint8)
         data = img.copy()
 
-        #img = Image.fromarray(img)
-        #img.save(reconstruct_dir + filepath)
 
         recon_img = np.rint(np.clip((recon_img *255.0), 0, 255)).astype(np.uint8)
         recon_data = recon_img.copy()
@@ -261,10 +254,8 @@ if __name__ == '__main__':
 
 
 
-        optimizer = optim.Adam(model.parameters(), lr=1e-2, weight_decay=1e-5)
-
-        # optimizer = optim.SGD(model.parameters(), lr=0.1*(0.9**args.restart_epoch), momentum=0.9, weight_decay=1e-5)
-        # scheduler = optim.lr_scheduler.StepLR(optimizer, step_size=1, gamma=0.9)
+        optimizer = optim.SGD(model.parameters(), lr=0.1*(0.9**args.restart_epoch), momentum=0.9, weight_decay=1e-5)
+        scheduler = optim.lr_scheduler.StepLR(optimizer, step_size=1, gamma=0.9)
 
 
         for epoch in range(args.restart_epoch, args.num_epochs):
@@ -291,7 +282,7 @@ if __name__ == '__main__':
             print('epoch:  ', epoch)
             train(model, optimizer, train_dl, args)
 
-            # scheduler.step()
+            scheduler.step()
 
 
     if args.mode == 'reconstruct':
