@@ -7,14 +7,9 @@ The reconstructed speech spectrograms will be processed by GL algorithm to recon
 -----------------------------------------------------------------------------------------------------------------
 -----------------------------------------------------------------------------------------------------------------
 
-The preprocessing code is in "preprocess" directory
+Due to security issues and requirements from certain companies, we could not release the code at this time. The code will be released in the future.
 
-The recognization code is in "recognization" directory
+And we also need to withdraw the code we released previously. Sorry for the inconvenience.
 
-The reconstruction code is in "reconstruction" directory
 
-The GL code is in "GL" directory
 
-We are still working on polishing some code, pls stay tuned.
-
-If there is any question/problem, pls contact tzheng4@buffalo.edu
